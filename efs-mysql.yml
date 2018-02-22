@@ -1,0 +1,13 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: efs-bd
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "aws-efs-gp"
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      # This is not used by the provisioner, but is required by the PVC.
+      storage: 8Gi

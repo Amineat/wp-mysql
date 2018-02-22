@@ -1,0 +1,26 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: aws-efs-provisioner
+  namespace: kube-system
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: aws-efs-provisioner
+    spec:
+      containers:
+        - name: aws-efs-provisioner
+          image: previousnext/k8s-aws-efs:2.0.0
+          env:
+            - name:  EFS_PERFORMANCE
+              value: "generalPurpose"
+            - name:  AWS_REGION
+              value: "eu-west-1"
+            - name:  AWS_SECURITY_GROUP
+              value: "sg-c4e765be"
+            - name:  AWS_SUBNETS
+              value: "subnet-83877ee5,subnet-3b3cf073"
